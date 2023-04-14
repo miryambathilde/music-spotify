@@ -1,12 +1,20 @@
-import React from 'react';
-import { Button } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { LoggedNavigation } from './routes';
+import Auth from './pages/Auth/Auth';
 
 export default function App () {
+
+  const [ user, setUser ] = useState(undefined);
+  const auth = getAuth();
+
+  onAuthStateChanged(auth, (user) => {
+    /* console.log(user); */ // null
+    setUser(user);
+  });
+
+  if (user === undefined) return null;
   return (
-    <div>
-      <h1>Bienvenido a my Spotify!</h1>
-      <Button primary>Primary</Button>
-      <Button secondary>Secondary</Button>
-    </div>
+    user ? <LoggedNavigation /> : <Auth />
   );
 }
