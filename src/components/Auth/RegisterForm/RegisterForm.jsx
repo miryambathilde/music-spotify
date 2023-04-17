@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Icon } from 'semantic-ui-react';
 import { useFormik } from "formik";
-import { initialValues } from './RegisterForm.data';
+import { initialValues, validationSchema } from './RegisterForm.data';
 import './RegisterForm.scss';
 
 export function RegisterForm (props) {
@@ -10,11 +10,15 @@ export function RegisterForm (props) {
 
 	const formik = useFormik({
 		initialValues: initialValues(),
+		validationSchema: validationSchema(),
+		validateOnChange: false,
 		onSubmit: (formValue) => {
 			console.log('Registro OK');
 			console.log(formValue);
 		}
 	});
+
+	console.log(formik.errors);
 
 	return (
 		<div className="register-form">
@@ -27,6 +31,7 @@ export function RegisterForm (props) {
 					icon="mail outline"
 					onChange={ formik.handleChange }
 					value={ formik.values.email }
+					error={ formik.errors.email }
 				/>
 				<Form.Input
 					name="password"
@@ -38,6 +43,7 @@ export function RegisterForm (props) {
 					}
 					onChange={ formik.handleChange }
 					value={ formik.values.password }
+					error={ formik.errors.password }
 				/>
 				<Form.Input
 					name="userName"
@@ -46,8 +52,13 @@ export function RegisterForm (props) {
 					icon="user circle outline"
 					onChange={ formik.handleChange }
 					value={ formik.values.userName }
+					error={ formik.errors.userName }
 				/>
-				<Form.Button type="submit" primary fluid>Submit</Form.Button>
+				<Form.Button
+					type="submit"
+					primary fluid loading={ formik.isSubmitting }
+
+				>Submit</Form.Button>
 			</Form>
 
 			<div className="register-form__options">
