@@ -31,7 +31,7 @@ export function RegisterForm (props) {
 			</Form>
 
 			<div className="register-form__options">
-				<p onClick={ goBack }>Back</p>
+				<p onClick={ goBack }>Go back</p>
 				<p>Already have a Musicfy? <span onClick={ openLoginForm }>Sign in</span></p>
 			</div>
 		</div>
