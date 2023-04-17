@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Image } from 'semantic-ui-react';
 import { AuthOptions, RegisterForm, LoginForm } from '../../components/Auth';
+import { logoNameWhite } from '../../assets';
 import "./Auth.scss";
 
 export default function Auth () {
@@ -20,8 +22,15 @@ export default function Auth () {
 		return <AuthOptions openLoginForm={ openLoginForm } openRegisterForm={ openRegisterForm } />;
 	});
 	return (
-		<div>
-			{ renderForm() }
+		<div className="auth">
+			<div className="auth__content">
+				<Image
+					src={ logoNameWhite }
+					alt="Musicfy"
+					className="auth__content-logo"
+				/>
+				{ renderForm() }
+			</div>
 		</div>
 	);
 }
