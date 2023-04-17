@@ -13,7 +13,7 @@ export function RegisterForm (props) {
 				<Form.Input
 					type="text"
 					placeholder="Email"
-					icon="mail outline"
+					icon="mail inline"
 				/>
 				<Form.Input
 					type="password"
