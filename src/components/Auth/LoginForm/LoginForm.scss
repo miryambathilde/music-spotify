@@ -1,6 +1,6 @@
-@import '~/src/scss/index.scss';
+@import "~/src/scss/index.scss";
 
-.register-form {
+.login-form {
 	margin-top: 50px;
 
 	> h1 {
@@ -41,6 +41,7 @@
 			}
 		}
 	}
+
 	&__options {
 		margin-top: 50px;
 		color: $font-light;
@@ -58,6 +59,7 @@
 				color: $font-grey;
 
 				span {
+					color: $font-light;
 					text-decoration: underline;
 					padding-left: 5px;
 					cursor: pointer;
