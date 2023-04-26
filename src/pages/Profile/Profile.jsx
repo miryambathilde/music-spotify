@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { User } from '../../api';
+import { AvatarUpdate, DisplayNameUpdateForm } from '../../components/Profile';
+import { BasicModal } from '../../components/Shared';
 import { Button } from 'semantic-ui-react';
 import './Profile.scss';
 
@@ -10,26 +12,62 @@ export function Profile () {
 
 	const { displayName, email, password } = userData.getMyUserData();
 
+	const [ showModal, setShowModal ] = useState(false);
+	const [ contentModal, setContentModal ] = useState(null);
+	const [ titleModal, setTitleModal ] = useState('');
+
+	const onCloseModal = () => {
+		setShowModal(false);
+		setContentModal(null);
+		setTitleModal('');
+		console.log('close modal');
+	};
+
+	const openFormModal = (type) => {
+		if (type === 'displayName') {
+			setTitleModal("Update name and surname");
+			setContentModal(< DisplayNameUpdateForm onClose={ onCloseModal } />);
+		}
+		if (type === 'email') {
+			setContentModal(<h1>Form Email</h1>);
+			setTitleModal('Update email');
+		}
+		if (type === 'password') {
+			setContentModal(<h1>Form password</h1>);
+			setTitleModal('Update password');
+		}
+
+		setShowModal(true);
+	};
+
 	return (
-		<div className="profile">
-			<h1>Configuration</h1>
-			<div className="profile__block">
-				<div>
-					<p>Avatar</p>
-					<span>{ displayName }</span>
+		<>
+			<div className="profile">
+				<h1>Configuration</h1>
+				<div className="profile__block">
+					<div>
+						<AvatarUpdate />
+						<span>{ displayName }</span>
+					</div>
+					<Button onClick={ () => openFormModal('displayName') }>Update</Button>
 				</div>
-				<Button onClick={ () => console.log('Actualizar') }>Update</Button>
-			</div>
 
-			<div className="profile__block">
-				<span>Email: { email }</span>
-				<Button onClick={ () => console.log('Change email') }>Update</Button>
-			</div>
+				<div className="profile__block">
+					<span>Email: { email }</span>
+					<Button onClick={ () => openFormModal('email') }>Update</Button>
+				</div>
 
-			<div className="profile__block">
-				<span>Password: ***** *****</span>
-				<Button onClick={ () => console.log('Change password') }>Update</Button>
+				<div className="profile__block">
+					<span>Password: ***** *****</span>
+					<Button onClick={ () => openFormModal('password') }>Update</Button>
+				</div>
 			</div>
-		</div>
+			<BasicModal
+				show={ showModal }
+				onClose={ onCloseModal }
+				title={ titleModal }
+				children={ contentModal }
+			/>
+		</>
 	);
 }
