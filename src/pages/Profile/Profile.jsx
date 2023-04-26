@@ -1,5 +1,6 @@
 import React from 'react';
 import { User } from '../../api';
+import { AvatarUpdate } from '../../components/Profile';
 import { Button } from 'semantic-ui-react';
 import './Profile.scss';
 
@@ -15,7 +16,7 @@ export function Profile () {
 			<h1>Configuration</h1>
 			<div className="profile__block">
 				<div>
-					<p>Avatar</p>
+					<AvatarUpdate />
 					<span>{ displayName }</span>
 				</div>
 				<Button onClick={ () => console.log('Actualizar') }>Update</Button>
